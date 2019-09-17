@@ -19,24 +19,3 @@ See:
 
 6. [CLIENT => SERVER] Call the relevant API with the refresh and access tokens
 
-## Credentials
-
-Drive Client ID
-
-
-    1024059571436-isphathb93das31s6hr2j74f03011aqb.apps.googleusercontent.com
-
-Drive Client Secret
-
-    SQ7G3EuNxHfcs1bvgejZ54tU
-
----
-
-Gmail Client ID
-
-    83509637420-51coovqfcjcc98bh14ak0lpvbnprirum.apps.googleusercontent.com
-
-Client Secret
-
-    v5x4NNa4osiyqS35SB0WOigU
-
