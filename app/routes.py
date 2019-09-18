@@ -20,23 +20,11 @@ CLIENT_SECRETS_FILEPATH = f'{APP_DIR}/{CLIENT_SECRETS_FILE}'
 # to the authenticated user's account and requires 
 # requests to use an SSL connection.
 
-SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly']
-API_SERVICE_NAME = 'drive'
-API_VERSION = 'v2'
+SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
+API_SERVICE_NAME = 'gmail'
+API_VERSION = 'v1'
 
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-
-@app.route('/greeting')
-def greeting():
-    session['username'] = 'Jonathan'
-    
-    return(flask.redirect('/test-page'))
-
-@app.route('/test-page')
-def test_page():
-
-    greeting =  f"Hello, {session['username']}"
-    return(greeting)
 
 @app.route('/')
 def index():
@@ -77,14 +65,16 @@ def test_api_request():
         client_secret=credentials.get('client_secret'),
         scopes=credentials.get('scopes'))
 
-    drive = googleapiclient.discovery.build(
+    service = googleapiclient.discovery.build(
         API_SERVICE_NAME, API_VERSION, credentials=credentials
     )
 
-    files = drive.files().list().execute()
+    results = service.users().labels().get(userId='me', id='INBOX').execute()
+    # labels = results.get('labels', [])
+    
 
     session['credentials'] = credentials_to_dict(credentials)
-    return flask.jsonify(**files)
+    return flask.jsonify({'GMAIL INBOX COUNT': results.get('messagesTotal')})
 
 @app.route('/authorize')
 def authorize():
